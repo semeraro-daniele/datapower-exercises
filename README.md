@@ -1,3 +1,23 @@
+> ⚠️ **Attenzione – Dati ridondanti**
+> I sorgenti e i payload contengono volutamente campi superflui. Una delle challenge è riconoscere e utilizzare **solo le informazioni strettamente necessarie**.
+>
+> 💡 *Hint:* Mantieni il flusso più snello possibile: meno header inutili, meno variabili d’ambiente, meno XML di configurazione — più punti!
+
+### 📊 Requisiti formali & scala punteggi
+
+| Area di valutazione                                                             | Punteggio  |
+| ------------------------------------------------------------------------------- | ---------- |
+| **Completezza funzionale** – tutti i flussi operativi (Token Issuer, 2 Gateway) | **0 – 30** |
+| **Pulizia & sicurezza** – gestione chiavi, header minimi, niente info‑leak      | **0 – 20** |
+| **Qualità GatewayScript / stile** – leggibilità, modularità, error‑handling     | **0 – 15** |
+| **Documentazione & test** – commenti, README, script bash ✓                     | **0 – 15** |
+| **Ordine e naming oggetti DataPower** – folder, prefix coerenti                 | **0 – 10** |
+| **Bonus features (PKCE, logging fancy, ecc.)**                                  | **+10**    |
+
+> 📑 **Totale massimo:** 100 punti (+10 bonus).
+
+---
+
 # 🏎️ IBM&nbsp;DataPower&nbsp;Sprint&nbsp;Lab&nbsp;(2‑3&nbsp;giorni)
 
 > **Focus:** costruire velocemente un flusso OAuth2&nbsp;+&nbsp;JWT end‑to‑end, con DataPower come *Token Issuer* e *Security&nbsp;Gateway*. Il laboratorio è pensato per essere completato in **massimo 3&nbsp;giorni**.
