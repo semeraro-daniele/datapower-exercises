@@ -1,20 +1,22 @@
-> ⚠️ **Attenzione – Dati ridondanti**
+
+
+> ⚠️ **Attenzione&nbsp;–&nbsp;Contenuto parzialmente AI generated**
 > I sorgenti e i payload contengono volutamente campi superflui. Una delle challenge è riconoscere e utilizzare **solo le informazioni strettamente necessarie**.
 >
 > 💡 *Hint:* Mantieni il flusso più snello possibile: meno header inutili, meno variabili d’ambiente, meno XML di configurazione — più punti!
 
-### 📊 Requisiti formali & scala punteggi
+### 📊 Requisiti formali &&nbsp;scala punteggi
 
 | Area di valutazione                                                             | Punteggio  |
 | ------------------------------------------------------------------------------- | ---------- |
-| **Completezza funzionale** – tutti i flussi operativi (Token Issuer, 2 Gateway) | **0 – 30** |
-| **Pulizia & sicurezza** – gestione chiavi, header minimi, niente info‑leak      | **0 – 20** |
+| **Completezza funzionale** – tutti i flussi operativi (Token&nbsp;Issuer, 2&nbsp;Gateway) | **0 – 30** |
+| **Pulizia &&nbsp;sicurezza** – gestione chiavi, header minimi, niente info‑leak      | **0 – 20** |
 | **Qualità GatewayScript / stile** – leggibilità, modularità, error‑handling     | **0 – 15** |
-| **Documentazione & test** – commenti, README, script bash ✓                     | **0 – 15** |
+| **Documentazione &&nbsp;test** – commenti, README, script bash&nbsp;✓                     | **0 – 15** |
 | **Ordine e naming oggetti DataPower** – folder, prefix coerenti                 | **0 – 10** |
 | **Bonus features (PKCE, logging fancy, ecc.)**                                  | **+10**    |
 
-> 📑 **Totale massimo:** 100 punti (+10 bonus).
+> 📑 **Totale massimo:** 100&nbsp;punti&nbsp;(+10 bonus).
 
 ---
 
@@ -207,7 +209,7 @@ if __name__ == '__main__':
 
 ### 🎯 Obiettivo
 
-Creare l’endpoint **`/oauth/token` (porta&nbsp;8080)** che emette JWT.
+Creare l’endpoint \`\`\*\* (porta&nbsp;8080)\*\* che emette JWT.
 
 ### 🔨 Task
 
@@ -262,13 +264,75 @@ curl http://datapower:8082/protected
 
 ## ✨ Bonus – PKCE (facoltativo)
 
-```javascript
-function validatePKCE(verifier, challenge) {
-  var crypto = require('crypto');
-  var hash = crypto.createHash('sha256').update(verifier).digest('base64url');
-  return hash === challenge;
-}
-```
+Implementa il flusso **OAuth2 Authorization Code con PKCE** in modo sicuro e scalabile.
+
+---
+
+## 🔑 **Authorization Endpoint** (`/oauth/authorize`)
+
+* ✅ **Accetta** tutti i parametri standard OAuth2
+* 🔐 **Gestisce** `code_challenge` e `code_challenge_method`
+* 📝 **Genera e memorizza** l’authorization code
+* 🔄 **Effettua redirect** con l’authorization code
+
+---
+
+## 🔄 **Token Exchange**
+
+* 📨 **Accetta** authorization code e `code_verifier`
+* ✅ **Valida** la PKCE challenge
+* 🏅 **Rilascia** token JWT se la validazione va a buon fine
+
+---
+
+## ⚠️ **Sfide Tecniche da Risolvere**
+
+### 🗃️ Challenge 1: State Management
+
+* Come **memorizzare temporaneamente** i dati PKCE tra authorization e token exchange
+* Gestione della **scadenza** degli authorization code
+* **Sicurezza** dei dati temporanei
+
+---
+
+### 🔐 Challenge 2: Crypto Operations
+
+* Implementazione delle funzioni di **hashing** per PKCE (SHA256)
+* **Encoding/decoding Base64URL**
+* **Validazione delle firme** JWT
+
+---
+
+### 🛠️ Challenge 3: Custom Logic
+
+* Decidere quando usare:
+
+  * **Processing Policy standard** vs **GatewayScript personalizzato**
+  * **Transform Actions** vs **custom scripting**
+  * **Built-in crypto functions** vs **implementazioni custom**
+
+---
+
+## ⚙️ **Specifiche di Implementazione**
+
+* **Authorization endpoint:** `8445` (HTTPS)
+* **Basic→JWT gateway:** `8446` (HTTPS)
+
+### Parametri PKCE da supportare
+
+| Parametro               | Descrizione                      |
+| ----------------------- | -------------------------------- |
+| `code_challenge_method` | `"S256"` e `"plain"`             |
+| `code_challenge`        | Challenge generato dal client    |
+| `code_verifier`         | Valore originale per la verifica |
+
+---
+
+## 🧪 **Testing Requirements**
+
+* Implementare **test completi** per tutti i flussi PKCE
+* **Validare la sicurezza** delle implementazioni crypto
+* **Performance test** per operazioni intensive
 
 ---
 
