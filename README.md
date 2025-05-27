@@ -232,7 +232,7 @@ curl -X POST http://datapower:8080/oauth/token \
   -d "grant_type=password"
 
 curl -X POST http://datapower:8080/oauth/token \
-  -d "grant_type=client_credentials&client_id=app1&client_secret=secret1"
+  -d "grant_type=client_credentials&client_id=alice&client_secret=pass123"
 ```
 
 ---
