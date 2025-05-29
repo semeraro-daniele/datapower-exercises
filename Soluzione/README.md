@@ -1,0 +1,2 @@
+Se si vogliono testare gli script è necessario sostituire all'interno degli scripts gli endpoint, da http://datapower:[porta] con l'IP locale del pc.
+Purtroppo localhost o 127.0.0.1 non vengono accettati.
